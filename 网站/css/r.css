@@ -1,0 +1,25 @@
+body { margin: 0px;  }  
+textarea {border: 0px;}
+.navbar-nav>li>a {
+padding-top: 5px;
+padding-bottom: 5px;
+}
+.navbar-brand {
+height: 20px;
+padding-top: 5px;
+}
+.navbar {
+min-height: 20px;
+}
+.navbar-toggle {
+margin-top: 2px;
+margin-bottom: 2px;
+}
+.cbl{
+    float: left;
+    width: 200px;
+}
+.cblbj{
+    margin-top: 10px;
+    margin-left: 10px
+}

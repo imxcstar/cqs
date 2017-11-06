@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+    <meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/zui/1.7.0/css/zui.min.css">
+    <link rel="stylesheet" href="./addon/hint/show-hint.css">
+    <link rel="stylesheet" href="./lib/codemirror.css">
+    <link rel="stylesheet" href="./theme/elegant.css">
+    <link rel="stylesheet" href="./css/jquery.treeview.css" />
+    <link rel="stylesheet" href="./css/r.css" />
+    <script src="http://cdn.bootcss.com/zui/1.7.0/lib/jquery/jquery.js"></script>
+    <script src="http://cdn.bootcss.com/zui/1.7.0/js/zui.min.js"></script>
+    <script src="./js/nie.js"></script>
+    <script src="./lib/codemirror.js"></script>
+    <script src="./mode/javascript/javascript.js"></script>
+    <script src="./addon/hint/javascript-hint.js"></script>
+    <script src="./js/HashTable.js"></script>
+    <script src="./js/Base64.js"></script>
+    <script src="./js/GL.js"></script>
+    <title>CQS库</title>
+    <script>
+        var csh = function () {
+            $.getScript("./js/r.js");
+        }
+        if (jQuery) {
+            csh();
+        } else {
+            $(function () {
+                csh();
+            });
+        }
+    </script>
+</head>
+
+<body scroll="no">
+    <nav class="navbar" role="navigation" style="margin-bottom: 0; border-bottom:1px solid rgb(191, 191, 191);">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-example">
+                    <span class="sr-only">切换导航</span>
+                    <span class="icon icon-bars"></span>
+                </button>
+                <a class="navbar-brand" href="javascript:void(0);">CQS</a>
+            </div>
+            <div class="collapse navbar-collapse navbar-collapse-example">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">文件
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="javascript:void(0);" id="save">保存</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/?z=fun" target="_Blank">函数说明</a>
+                    </li>
+                    <li>
+                        <a href="http://d.cqp.me/Pro/CQ%E7%A0%81" target="_Blank">CQ码说明</a>
+                    </li>
+                    <li>
+                        <a href="./download/cpk/com.xcssa.cqs.cpk" target="_Blank">插件下载</a>
+                    </li>
+                    <li>
+                        <a href="https://cqp.cc/" target="_Blank">酷Q下载</a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/imxcstar/cqs" target="_Blank">GitHub</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="icon icon-user dropdown-toggle" data-toggle="dropdown" id="username">用户名
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li style="cursor:pointer" class="disabled">
+                                <a style="cursor:pointer;color: #999" id="uid">Uid:0</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="javascript:void(0);" id="gkey">key</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" id="mpass">修改密码</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" id="logout">注销</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div>
+        <textarea id="code" frameborder="0">var EVENT_IGNORE = 0        //事件_忽略
+var EVENT_BLOCK = 1         //事件_拦截
+
+var REQUEST_ALLOW = 1       //请求_通过
+var REQUEST_DENY = 2        //请求_拒绝
+
+var REQUEST_GROUPADD = 1    //请求_群添加
+var REQUEST_GROUPINVITE = 2 //请求_群邀请
+
+var CQLOG_DEBUG = 0         //调试 灰色
+var CQLOG_INFO = 10         //信息 黑色
+var CQLOG_INFOSUCCESS = 11  //信息(成功) 紫色
+var CQLOG_INFORECV = 12     //信息(接收) 蓝色
+var CQLOG_INFOSEND = 13     //信息(发送) 绿色
+var CQLOG_WARNING = 20      //警告 橙色
+var CQLOG_ERROR = 30        //错误 红色
+var CQLOG_FATAL = 40        //致命错误 深红
+
+
+//Type=21 私聊消息
+//subType 子类型，11/来自好友 1/来自在线状态 2/来自群 3/来自讨论组
+var eventPrivateMsg=function(subType,sendTime,fromQQ,Msg,font){
+
+    return EVENT_IGNORE;
+}
+
+//Type=2 群消息
+var eventGroupMsg=function(subType,sendTime,fromGroup,fromQQ,fromAnonymous,Msg,font){
+
+    return EVENT_IGNORE;
+}
+
+//Type=4 讨论组消息
+var eventDiscussMsg=function(subType,sendTime,fromDiscuss,fromQQ,Msg,font){
+
+    return EVENT_IGNORE;
+}
+
+// Type=101 群事件-管理员变动
+// subType 子类型，1/被取消管理员 2/被设置管理员
+var eventSystem_GroupAdmin=function(subType,sendTime,fromDiscuss,beingOperateQQ){
+
+    return EVENT_IGNORE;
+}
+
+// Type=102 群事件-群成员减少
+// subType 子类型，1/群员离开 2/群员被踢 3/自己(即登录号)被踢
+// fromQQ 操作者QQ(仅subType为2、3时存在)
+// beingOperateQQ 被操作QQ
+var eventSystem_GroupMemberDecrease=function(subType,sendTime,fromDiscuss,fromQQ,beingOperateQQ){
+
+    return EVENT_IGNORE;
+}
+
+//Type=103 群事件-群成员增加
+//subType 子类型，1/管理员已同意 2/管理员邀请
+//fromQQ 操作者QQ(即管理员QQ)
+//beingOperateQQ 被操作QQ(即加群的QQ)
+var eventSystem_GroupMemberIncrease=function(subType,sendTime,fromDiscuss,fromQQ,beingOperateQQ){
+
+    return EVENT_IGNORE;
+}
+
+//Type=201 好友事件-好友已添加
+var eventFriend_Add=function(subType,sendTime,fromQQ){
+
+    return EVENT_IGNORE;
+}
+
+//Type=301 请求-好友添加
+//msg 附言
+//responseFlag 反馈标识(处理请求用)
+var eventRequest_AddFriend=function(subType,sendTime,fromQQ,Msg,responseflag){
+
+    return EVENT_IGNORE;
+}
+
+//Type=302 请求-群添加
+//subType 子类型，1/他人申请入群 2/自己(即登录号)受邀入群
+//msg 附言
+//responseFlag 反馈标识(处理请求用)
+var eventRequest_AddGroup=function(subType,sendTime,fromGroup,fromQQ,Msg,responseflag){
+
+    return EVENT_IGNORE;
+}</textarea>
+    </div>
+    <script>
+        $.ajax({
+            url: "/?z=GetUserInfo&t=" + (new Date()).getTime(),
+            type: "get",
+            dataType: "json",
+            success: function (data) {
+                if (data.status === 0) {
+                    $("#username").text(data.username);
+                    $("#uid").text("Uid:" + data.uid);
+                    key = data.key;
+                } else {
+                    new $.zui.Messager(data.info, {
+                        icon: 'info',
+                        type: 'info'
+                    }).show();
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

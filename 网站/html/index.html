@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+    <meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/zui/1.7.0/css/zui.min.css">
+    <script src="http://cdn.bootcss.com/zui/1.7.0/lib/jquery/jquery.js"></script>
+    <script src="http://cdn.bootcss.com/zui/1.7.0/js/zui.min.js"></script>
+    <script src="./js/nie.js"></script>
+    <title>CQS库-登录</title>
+</head>
+
+<body>
+    <div class="modal fade" id="logink">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div style="margin:0 auto;text-align:center">
+                        <input type="text" id="username" class="form-control" placeholder="账号">
+                        <input type="password" id="password" class="form-control" placeholder="密码" style="margin-top: 1rem">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <font style="color: #ff0000">没有账号的填写好信息点击登录自动注册！</font>
+                    <button type="button" id="login" class="btn btn-primary">登录</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $('#logink').modal({
+            keyboard: false,
+            backdrop: "static",
+            position: 200,
+            show: true
+        })
+    </script>
+    <script>
+        var csh = function () {
+            $.getScript("./js/login.js");
+        }
+        if (jQuery) {
+            csh();
+        } else {
+            $(function () {
+                csh();
+            });
+        }
+    </script>
+</body>
+
+</html>
